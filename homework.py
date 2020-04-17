@@ -28,28 +28,35 @@ a.sort(key=lambda x:x[10],reverse=True )
 #新知识！如果a是一个由元祖/列表组成的列表，对该列表排序时，需要用到sort的参数key,用来指定排序的关键词。lambda是一个匿名函数，是固定写法；x表示匿名函数的输入，即列表中的一个元素，在这里，表示一个元组，x只是临时起的一个名字，你可以使用任意的名字；x[0]表示匿名函数的输出，即元组里的第一个元素，即key = x[0]；所以这句命令的意思就是按照列表中第一个元素进行排序
 
 ## 3. 汇总每一科目的平均分和总平均分
-a.insert(1,['0','平均'])
-print(a)
-total=0
-def aveforsubject(x):
-    global total
-    for i in a[2:]:
-        total = total + int(i[x])
-    aves = total//30
-    f=aves
-    return f
-    print(f)
-    a[1].append(str(f))
-aveforsubject(2)
-print(a)
+#这一个要多看看，好绕
+x=len(i[1:])
+y=len(a[1:])
+xiangjia=[]
+xiangchu=[]
+for j in range(x):
+    xiangjia.append(0)
+    xiangchu.append(0)
+for i in a[1:]:
+    fenshu=i[1:]
+    for num in range(x):
+        fenshu1=int(fenshu[num])
+        xiangjia1=int(xiangjia[num])
+        xiangjia[num]=fenshu1+xiangjia1
+for num in range(x):
+    m=int(xiangjia[num])
+    xiangchu[num]=m//y
+xiangchu.insert(0,'平均')
+a.insert(1,xiangchu)
 
 ## 4.为学生加上名次
 a[0].insert(0,'名次')
+a[1].insert(0,'0')
 mingci=0
 for i in a[2:]:
     mingci=mingci+1
-    i.insert(0,mingci)
+    i.insert(0,str(mingci))
 print(a)
+
 
 ## 5.替换60分以下的成绩为“不合格”
 for list in a[2:]:
@@ -63,12 +70,11 @@ for list in a[2:]:
 #            m=m.replace(m,'不合格')
 print(a)
 
+
 ## 6.存储成新文件
-with open('q:/python/classroom/result.txt','w') as f:
-    for i in l:
-        f.writelines(i+'\n')
-
-
-
-
-
+#这里注意嵌套关系不仅是内外层的关系，注意最内层的处理方式也会影响外层，所以最后用write而不是writelines.
+with open('result.txt','w') as f:
+    for list in a:
+        for i in list:
+            f.write(str(i)+'\t')
+        f.write('\n')
